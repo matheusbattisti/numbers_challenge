@@ -43,4 +43,5 @@ return [
             '1000' => 'mil',
     ],
     'separator' => ' e ',
+    'header' => ['Content-Type' => 'application/json;charset=utf8'],
 ];

@@ -8,15 +8,20 @@ class ChallengeController extends Controller
 {
     public function index(Request $request, $number) {
 
+        // starting response without value
+        $response = '';
+
+        // the response header
+        $header = \Config::get('constants.header');
+
+        // A collection with some numbers
         $numbersCollection = \Config::get('constants.numbers');
 
+        // number separator -> ' e '
         $separator = \Config::get('constants.separator');
 
         // business logic, explode the number into array and analyze it
         $numbers = str_split($number);
-
-        // starting response without value
-        $response = '';
 
         // solving negative numbers
         if($numbers[0] == '-') {
@@ -34,10 +39,36 @@ class ChallengeController extends Controller
         // check array length
         $numbersLength = count($numbers);
 
-        // TODO IN THE FUTURE
-        // check if is a real number
-        // caso do cento e 1
+        // testing some wrong inputs
+        try {
 
+            // if is greater than determinated length, return an error [-99999, 99999]
+            if($numbersLength > 5 && is_numeric($number)) {
+
+                throw new \Exception('Erro: o número solicitado deve estar entre -99999 e 99999.');
+
+            // check if is a number
+            } else if(!is_numeric($number)) {
+
+                throw new \Exception('Erro: você deve enviar um número entre -99999 e 99999.');
+
+            // check special chars
+            } else if(preg_match('/[#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/', $number)) {
+
+                throw new \Exception('Erro: você deve enviar um número entre -99999 e 99999.');
+
+            }
+
+        } catch(\Exception $e) {
+
+            return response()->json([
+                'extenso' => $e->getMessage()
+            ], 422, $header, JSON_UNESCAPED_UNICODE);
+
+        }
+
+
+        // business logic
         for($i = 0; $i < $numbersLength; $i++) {
 
             // if the actual number is 0 skip
@@ -97,7 +128,7 @@ class ChallengeController extends Controller
 
         return response()->json([
             'extenso' => $response
-        ]);
+        ], 200, $header, JSON_UNESCAPED_UNICODE);
 
     }
 }

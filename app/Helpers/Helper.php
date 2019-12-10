@@ -22,8 +22,6 @@
 
             $zeroes = substr_count($nomalizedNumber, '0');
 
-            \Log::info('zeroes: ' . $zeroes);
-
             if($zeroes == 3) {
 
                 return $numbersCollection[$nomalizedNumber[0]] . ' mil';
