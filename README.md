@@ -24,7 +24,7 @@
 
 **4 - Rodar o servidor:** php artisan serve --port=3000
 
-**5 - Executar os testes na rota /:** curl localhost:8000/1
+**5 - Executar os testes na rota /:** curl localhost:3000/1
 
 **Opicional: Executar testes unitários:** vendor/bin/phpunit
 
