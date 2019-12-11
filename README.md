@@ -11,7 +11,7 @@
 * PDO PHP Extension
 * Tokenizer PHP Extension
 * XML PHP Extension
-* Composer
+* Composer (https://getcomposer.org/download/)
 * git
 
 ## Rodando o projeto:
